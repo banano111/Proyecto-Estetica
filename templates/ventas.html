@@ -2,6 +2,64 @@
 
 {% block content %}
 
-<h2>Pagina Módulo de Ventas</h2>
+<div class= "container mt-5">
+     <div class= "row">
+          <div class= "col">
+                <div class= "card">
+                    <div class= "card-header"> Ventas</div>
+                    <div class= "card-body p-5">
+                         <div class="row form-group align-items-end">
+                            <div class="col">
+                                <label for="inputState">Producto o Servicio</label>
+                                <select name="Producto_servicio" class="form-control">
+                                  <option selected>Escoger..</option>
+                                  <option>...</option>
+                                </select>
+                              </div>
+                              <div class="col">
+                                <label for="inputZip">Cantidad</label>
+                                <input type="text" class="form-control" name="Cantidad">
+                              </div>
+                              <div class="col">
+                                <button type="submit" class="btn btn-primary mb-6">Ingresar</button>
+                              </div>   
+                            </div>      
+                         <div class="card">
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Servicios Seleccionados</th>
+                                        <th scope="col">Precio</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>Corte</td>
+                                        <td>100</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                          </div>
+                    <form class="form-inline align-items-center">
+                        <div class="form-group mb-4">
+                          <label for="staticEmail2" class="sr-only">  Total</label>
+                          <input type="text" readonly class="form-control-plaintext" name="Total" value="Total">
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                          <label for="inputPassword2" class="sr-only">Total</label>
+                          <input type="password" class="form-control" name="Total1" placeholder="Total">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2" name="Generar_venta">Generar Venta</button>
+                      </form>
+                 </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

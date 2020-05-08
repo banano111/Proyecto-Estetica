@@ -1,0 +1,42 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <a href="{{ url_for('inventario_form')}}" class="btn btn-success">Agregar Nuevo Producto</a>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Existencias</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for producto in Inventario %}
+                  <tr>
+                    <td>{{producto.Marca_Producto}}</td>
+                    <td>{{producto.Modelo_Producto}}</td>
+                    <td>{{producto.Costo_Producto}}</td>
+                    <td>{{producto.Existencias}}</td>
+                    <td>
+                      <a href="/editar_producto/{{producto.ID_Producto}}" class="btn btn-secondary">Editar</a>
+                      <a href="/eliminar_producto/{{producto.ID_Producto}}" class="btn btn-danger btn-delete">Eliminar</a>
+                    </td>
+                  </tr>
+                {% endfor %} 
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

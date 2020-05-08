@@ -6,26 +6,26 @@
     <div class="row">
         <div class="col">
             <div class="card">
-                <div class="card-header">Formulario Nuevo Producto Inventario</div>
+                <div class="card-header">Formulario Actualizacion Producto Inventario</div>
                 <div class="card-body p-5">
-                    <form action="/nuevo_producto" method="POST">
+                    <form action="/actualizar_producto/{{producto.ID_Producto}}" method="POST">
                     <div class="form-group">
                         <label for="Marca_Producto">Marca</label>
-                        <input type="text" class="form-control" name="Marca_Producto" required>
+                        <input type="text" class="form-control" name="Marca_Producto" value="{{producto.Marca_Producto}}" required>
                     </div>
                     <div class="form-group">
                         <label for="Modelo_Producto">Modelo</label>
-                        <input type="text" class="form-control" name="Modelo_Producto" required>
+                        <input type="text" class="form-control" name="Modelo_Producto" value="{{producto.Modelo_Producto}}" required>
                     </div>
                     <div class="form-group">
                         <label for="Costo_Producto">Costo</label>
-                        <input type="text" class="form-control" name="Costo_Producto" required>
+                        <input type="text" class="form-control" name="Costo_Producto" value="{{producto.Costo_Producto}}" required>
                     </div>
                     <div class="form-group">
                         <label for="Existencias">Existencias</label>
-                        <input type="text" class="form-control" name="Existencias" required>
+                        <input type="text" class="form-control" name="Existencias" value="{{producto.Existencias}}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mt-5" name="nuevo_producto">Guardar Nuevo Producto</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-5" name="actualizar_producto">Actualizar Producto</button>
                     </form>
                 </div>
             </div>
