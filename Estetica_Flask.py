@@ -51,29 +51,21 @@ def ventas():
 def citas():
     return render_template('citas.html')
 
-@app.route('/Clientes', methods=['GET','POST'])
+@app.route('/Clientes', methods=['GET'])
 def clientes():
+       return render_template('clientes.html')      
 
-    if request.method == "GET":
-       return render_template('clientes.html')
-
-    else:
-        Nombre_Cliente = request.form['Nombre_Cliente']
-        Apellido_Cliente = request.form['Apellido_Cliente']
-        Telefono_Cliente = request.form['Telefono_Cliente']
-        Cumpleaños_Cliente = request.form['Cumpleaños_Cliente']
-
-        try:
-            with connection.cursor() as cursor:
-                # Agregar un nuevo Usuario
-                cursor.execute("INSERT INTO Clientes2 (Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente) VALUES (%s,%s,%s,%s)",(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleaños_Cliente))
-
-            # Conexion a la BD para Registro
-            connection.commit()
-        finally:
-            print("Se Guardo")
-
-        return render_template("index.html")        
+@app.route('/nuevo_cliente', methods = ['POST'])
+def nuevo_cliente():
+    Nombre_Cliente = request.form['Nombre_Cliente']
+    Apellido_Cliente = request.form['Apellido_Cliente']
+    Telefono_Cliente = request.form['Telefono_Cliente']
+    Cumpleaños_Cliente = request.form['Cumpleaños_Cliente']
+    cur = con.cursor()
+    cur.execute("INSERT INTO Clientes2 (Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente) VALUES (%s,%s,%s,%s)",(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleaños_Cliente))
+    con.commit()
+    cur.close()
+    return redirect(url_for('clientes'))
 
 @app.route('/editar_producto/<id>', methods = ['POST', 'GET'])
 def get_contact(id):
