@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 import pymysql.cursors
 
@@ -11,8 +10,10 @@ con = pymysql.connect(host='localhost',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-
 app = Flask(__name__, template_folder="templates")
+
+# Configuracion para Flash Messages
+app.secret_key = "mysecretkey"
     
 @app.route('/index')
 @app.route('/')
@@ -41,6 +42,7 @@ def nuevo_producto():
     cur.execute("INSERT INTO Inventario2 (Marca_Producto, Modelo_Producto, Costo_Producto, Existencias) VALUES (%s,%s,%s,%s)",(Marca_Producto, Modelo_Producto, Costo_Producto, Existencias))
     con.commit()
     cur.close()
+    flash('Producto Agregado Correctamente')
     return redirect(url_for('inventario'))   
 
 @app.route('/Ventas',)
@@ -65,6 +67,7 @@ def nuevo_cliente():
     cur.execute("INSERT INTO Clientes2 (Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente) VALUES (%s,%s,%s,%s)",(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleaños_Cliente))
     con.commit()
     cur.close()
+    flash('Cliente Agregado Correctamente')
     return redirect(url_for('clientes'))
 
 @app.route('/editar_producto/<id>', methods = ['POST', 'GET'])
@@ -92,6 +95,7 @@ def update_contact(id):
                     """,(Marca_Producto, Modelo_Producto, Costo_Producto, Existencias, id))
     con.commit()
     cur.close()
+    flash('Producto Editado Correctamente')
     return redirect(url_for('inventario'))
 
 @app.route('/eliminar_producto/<id>', methods = ['POST','GET'])
@@ -99,6 +103,7 @@ def delete_contact(id):
     cur = con.cursor()
     cur.execute('DELETE FROM Inventario2 WHERE ID_Producto = %s',(id))
     con.commit()
+    flash('Producto Eliminado Correctamente')
     return redirect(url_for('inventario'))
 
 if __name__ == '__main__':
