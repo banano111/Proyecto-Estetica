@@ -2,6 +2,45 @@
 
 {% block content %}
 
-<h2>Pagina Creación de Citas</h2>
+<div class= "container mt-5">
+    <div class= "row">
+         <div class= "col">
+               <div class= "card" >
+                   <div class= "card-header"> Citas</div>
+                    <div class="card-boby p-5">
+                        <form>
+                           <div class="form-row">
+                               <div class="form-group col-md-6">
+                                 <label for="inputEmail4">Horario</label>
+                                 <input type="email" class="form-control" name="Horario">
+                                 </div>
+                                <div class="form-group col-md-6">
+                                 <label for="inputPassword4">Fecha</label>
+                                 <input type="password" class="form-control" name="Fecha">
+                               </div>
+                               <div class="form-group col-md-6">
+                                 <label for="inputPassword4">Cliente</label>
+                                 <input type="password" class="form-control" name="Cliente">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputPassword4">Contacto</label>
+                                    <input type="password" class="form-control" name="Contacto">
+                                   </div>
+                             </div>
+                             <div class="form-group">
+                                <label for="disabledSelect">Servicio</label>
+                                <select name="Servicio" class="form-control">
+                                  <option>Seleccione el servicio que desee.</option>
+                                </select>
+                              </div>
+                              <button type="submit" class="btn btn-primary" name="Crear_cita">Crear Cita</button>
+                       </form>
+                   </div>
+
+                 </div>
+            </div>
+       </div>
+   </div>
+</div>
 
 {% endblock %}

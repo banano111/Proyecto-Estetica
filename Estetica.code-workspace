@@ -4,5 +4,7 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"python.pythonPath": "/Users/banano/.local/share/virtualenvs/Estetica-N3e8sc8J/bin/python"
+	}
 }
