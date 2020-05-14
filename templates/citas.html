@@ -10,29 +10,29 @@
                     <div class="card-boby p-5">
                         <form>
                            <div class="form-row">
-                               <div class="form-group col-md-6">
-                                 <label for="inputEmail4">Horario</label>
-                                 <input type="email" class="form-control" name="Horario">
-                                 </div>
                                 <div class="form-group col-md-6">
-                                 <label for="inputPassword4">Fecha</label>
-                                 <input type="password" class="form-control" name="Fecha">
-                               </div>
-                               <div class="form-group col-md-6">
-                                 <label for="inputPassword4">Cliente</label>
-                                 <input type="password" class="form-control" name="Cliente">
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Contacto</label>
-                                    <input type="password" class="form-control" name="Contacto">
-                                   </div>
+                                   <label for="hora">Horario</label>
+                                    <input type="time" name="hora" min="10:00" max="20:00">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                   <label for="fecha">Fecha</label>
+                                   <input type="date" name="fecha" min="2020-01-01" max="2021-12-31" >
+                                  </div>
+                                 <div class="form-group col-md-6">
+                                   <label for="Cliente">Cliente</label>
+                                    <input type="text" class="form-control" name="Cliente">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="Contacto">Contacto</label>
+                                    <input type="text" class="form-control" name="Contacto">
+                                  </div>
                              </div>
-                             <div class="form-group">
-                                <label for="disabledSelect">Servicio</label>
-                                <select name="Servicio" class="form-control">
-                                  <option>Seleccione el servicio que desee.</option>
-                                </select>
-                              </div>
+                                 <div class="form-group">
+                                   <label for="Servicio">Servicio</label>
+                                    <select name="Servicio" class="form-control">
+                                    <option>Seleccione el servicio que desee.</option>
+                                    </select>
+                                  </div>
                               <button type="submit" class="btn btn-primary" name="Crear_cita">Crear Cita</button>
                        </form>
                    </div>
