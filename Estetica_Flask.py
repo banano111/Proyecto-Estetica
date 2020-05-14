@@ -19,31 +19,6 @@ app.secret_key = "mysecretkey"
 @app.route('/')
 def index():
     return render_template('index.html')
-    
-@app.route('/Inventario', methods=['GET'])
-def inventario():
-    cur = con.cursor()
-    cur.execute("SELECT * FROM Inventario2")
-    Inventario = cur.fetchall()
-    cur.close()
-    return render_template('inventario.html', Inventario = Inventario)
-
-@app.route('/inventario_form', methods=['GET'])
-def inventario_form():
-    return render_template('inventario_form.html')
-
-@app.route('/nuevo_producto', methods=['POST'])
-def nuevo_producto():
-    Marca_Producto = request.form['Marca_Producto']
-    Modelo_Producto = request.form['Modelo_Producto']
-    Costo_Producto = request.form['Costo_Producto']
-    Existencias = request.form['Existencias']
-    cur = con.cursor()
-    cur.execute("INSERT INTO Inventario2 (Marca_Producto, Modelo_Producto, Costo_Producto, Existencias) VALUES (%s,%s,%s,%s)",(Marca_Producto, Modelo_Producto, Costo_Producto, Existencias))
-    con.commit()
-    cur.close()
-    flash('Producto Agregado Correctamente')
-    return redirect(url_for('inventario'))   
 
 @app.route('/Ventas',)
 def ventas():
@@ -69,6 +44,31 @@ def nuevo_cliente():
     cur.close()
     flash('Cliente Agregado Correctamente')
     return redirect(url_for('clientes'))
+
+@app.route('/Inventario', methods=['GET'])
+def inventario():
+    cur = con.cursor()
+    cur.execute("SELECT * FROM Inventario2")
+    Inventario = cur.fetchall()
+    cur.close()
+    return render_template('inventario.html', Inventario = Inventario)
+
+@app.route('/inventario_form', methods=['GET'])
+def inventario_form():
+    return render_template('inventario_form.html')
+
+@app.route('/nuevo_producto', methods=['POST'])
+def nuevo_producto():
+    Marca_Producto = request.form['Marca_Producto']
+    Modelo_Producto = request.form['Modelo_Producto']
+    Costo_Producto = request.form['Costo_Producto']
+    Existencias = request.form['Existencias']
+    cur = con.cursor()
+    cur.execute("INSERT INTO Inventario2 (Marca_Producto, Modelo_Producto, Costo_Producto, Existencias) VALUES (%s,%s,%s,%s)",(Marca_Producto, Modelo_Producto, Costo_Producto, Existencias))
+    con.commit()
+    cur.close()
+    flash('Producto Agregado Correctamente')
+    return redirect(url_for('inventario'))   
 
 @app.route('/editar_producto/<id>', methods = ['POST', 'GET'])
 def get_contact(id):
