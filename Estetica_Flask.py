@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import pymysql.cursors
 
 # Connect to the database
-con = pymysql.connect(host='localhost',
+con = pymysql.connect(host='34.70.175.6',
                              user='root',
                              password='Urb@no1125',
                              db='Estetica',
