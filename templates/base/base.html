@@ -19,6 +19,15 @@
     </button>
     <div class="collapse navbar-collapse flex-row-reverse" id="navbarNav">
       <ul class="navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span>{{session['user']}}<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li><a href=""><span class="glyphicon glyphicon-wrench pull-right"></span><span class="dropdown-link-text">Ajustes Cuenta</span></a></li>
+            <li><a href=""><span class="glyphicon glyphicon-lock pull-right"></span><span class="dropdown-link-text">Cambiar Password</span></a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-out pull-right"></span><span class="dropdown-link-text">Cerrar Sesión</span></a></li>
+          </ul>
+        </li>
         <li class="nav-item active">
           <a class="nav-link" href="{{ url_for('index')}}">Principal</a>
         </li>
