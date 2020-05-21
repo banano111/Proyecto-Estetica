@@ -3,33 +3,33 @@
 {% block content %}
 
 <div class= "container mt-5">
-    <div class= "row">
-         <div class= "col">
-               <div class= "card" >
+    <div class= "row justify-content-center">
+         <div class= "col-8">
+               <div class= "card">
                    <div class= "card-header"> Citas</div>
                     <div class="card-boby p-5">
                         <form>
                            <div class="form-row">
                                <div class="form-group col-md-6">
-                                 <label for="inputEmail4">Horario</label>
-                                 <input type="text" class="form-control" name="Horario">
-                                 </div>
-                                <div class="form-group col-md-6">
-                                 <label for="inputPassword4">Fecha</label>
-                                 <input type="text" class="form-control" name="Fecha">
-                               </div>
-                               <div class="form-group col-md-6">
-                                 <label for="inputPassword4">Cliente</label>
-                                 <input type="text" class="form-control" name="Cliente">
+                                 <label for="Fecha_Cita">Fecha</label>
+                                 <input type="date" class="form-control" name="Fecha_Cita" min="2020-01-01" max="2020-12-31">
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputPassword4">Contacto</label>
-                                    <input type="password" class="form-control" name="Contacto">
-                                   </div>
+                               <div class="form-group col-md-6">
+                                  <label for="Horario_Cita">Horario</label>
+                                 <input type="time" class="form-control" name="Horario_Cita" min="10:00" max="21:00">
+                               </div>
+                                  <div class="form-group col-md-6">
+                                   <label for="Ciente_Cita">Cliente</label>
+                                   <input type="text" class="form-control" name="Ciente_Cita">
+                                </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="Contacto_Cita">Contacto</label>
+                                    <input type="text" class="form-control" name="Contacto_Cita">
+                                  </div>
                              </div>
                                  <div class="form-group">
-                                   <label for="Servicio">Servicio</label>
-                                    <select name="Servicio" class="form-control">
+                                   <label for="Servicio_Cita">Servicio</label>
+                                    <select name="Servicio_Cita" class="form-control">
                                     <option>Seleccione el servicio que desee.</option>
                                     </select>
                                   </div>
