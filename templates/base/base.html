@@ -182,11 +182,11 @@
         <li class="nav-item"><a href="{{ url_for('citas')}}" class="nav-link"><i class="fa fa-calendar-plus-o"></i><span>Citas</span></a></li>
         <li class="nav-item"><a href="{{ url_for('clientes')}}" class="nav-link"><i class="fa fa-users"></i><span>Clientes</span></a></li>
         <li class="nav-item dropdown">
-          <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action dropdown-menu-right"><img src="https://www.tutorialrepublic.com/examples/images/avatar/3.jpg" class="avatar" alt="Avatar">{{session['user']}}<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></li>
-            <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></li>
-            <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></li>
+          <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action"><img src="https://www.tutorialrepublic.com/examples/images/avatar/3.jpg" class="avatar" alt="Avatar">{{session['user']}}<b class="caret"></b></a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li><a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Perfil</a></li>
+            <li><a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i>Agregar Usuarios</a></li>
+            <li><a href="#" class="dropdown-item"><i class="fa fa-sliders"></i>Cambiar Contraseña</a></li>
             <li class="divider dropdown-divider"></li>
             <li><a href="/logout" class="dropdown-item"><i class="material-icons">&#xE8AC;</i>Cerrar Sesión</a></li>
           </ul>
