@@ -1,0 +1,38 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-header">Formulario de Nuevo Cliente</div>
+                <div class="card-body p-5">
+                    <form action="/nuevo_cliente" method="POST">
+                    <div class="form-group">
+                        <label for="Nombre_Cliente">Nombre(s)</label>
+                        <input type="text" class="form-control" name="Nombre_Cliente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Apellido_Cliente">Apellidos</label>
+                        <input type="text" class="form-control" name="Apellido_Cliente" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="col mr-4">
+                          <label for="Telefono_Cliente">Télefono</label>
+                          <input type="text" class="form-control" name="Telefono_Cliente" required>
+                        </div>
+                        <div class="col">
+                          <label for="Cumpleños_Cliente">Fecha de Cumpleaños</label>  
+                          <input type="date"  class="form-control" name="Cumpleanos_Cliente" min="1950-01-01" max="2020-01-01" required>
+                        </div>
+                      </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-5" name="nuevo_cliente" value="Agregar Nuevo Cliente">Guardar Nuevo Cliente</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

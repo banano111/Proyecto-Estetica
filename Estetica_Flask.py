@@ -75,9 +75,22 @@ def citas():
 @app.route('/Clientes', methods=['GET'])
 def clientes():
     if 'user' in session:
-        return render_template('clientes.html')
+        cur = con.cursor()
+        cur.execute("SELECT * FROM Clientes2")
+        Clientes = cur.fetchall()
+        cur.close()
+        return render_template('clientes.html', Clientes = Clientes)
     else:
         return redirect(url_for('index'))      
+
+
+@app.route('/cliente_form', methods=['GET'])
+def cliente_form():
+    if 'user' in session:
+        return render_template('clientes_form.html')
+    else:
+        return redirect(url_for('index'))
+
 
 @app.route('/nuevo_cliente', methods = ['POST'])
 def nuevo_cliente():
@@ -85,17 +98,63 @@ def nuevo_cliente():
         Nombre_Cliente = request.form['Nombre_Cliente']
         Apellido_Cliente = request.form['Apellido_Cliente']
         Telefono_Cliente = request.form['Telefono_Cliente']
-        Cumpleaños_Cliente = request.form['Cumpleaños_Cliente']
+        Cumpleanos_Cliente = request.form['Cumpleanos_Cliente']
         cur = con.cursor()
-        cur.execute("INSERT INTO Clientes2 (Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente) VALUES (%s,%s,%s,%s)",(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleaños_Cliente))
+        cur.execute("INSERT INTO Clientes2 (Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente) VALUES (%s,%s,%s,%s)",(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente))
         con.commit()
         cur.close()
         flash('Cliente Agregado Correctamente')
         return redirect(url_for('clientes'))
     else:
         return redirect(url_for('index'))
-        
 
+
+@app.route('/editar_cliente/<id>', methods = ['POST', 'GET'])
+def get_client(id):
+    if 'user' in session:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM Clientes2 WHERE ID_Cliente = %s', (id))
+        data = cur.fetchall()
+        cur.close()
+        return render_template('editar_clientes.html', cliente = data[0])
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/actualizar_cliente/<id>', methods=['POST'])
+def update_client(id):
+    if 'user' in session:
+        Nombre_Cliente = request.form['Nombre_Cliente']
+        Apellido_Cliente = request.form['Apellido_Cliente']
+        Telefono_Cliente = request.form['Telefono_Cliente']
+        Cumpleanos_Cliente = request.form['Cumpleanos_Cliente']
+        cur = con.cursor()
+        cur.execute("""
+                    UPDATE Clientes2 
+                    SET Nombre_Cliente = %s ,
+                        Apellido_Cliente = %s ,
+                        Telefono_Cliente = %s ,
+                        Cumpleanos_Cliente = %s
+                    WHERE ID_Cliente = %s
+                        """,(Nombre_Cliente, Apellido_Cliente, Telefono_Cliente, Cumpleanos_Cliente, id))
+        con.commit()
+        cur.close()
+        flash('Producto Editado Correctamente')
+        return redirect(url_for('clientes'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/eliminar_cliente/<id>', methods = ['POST','GET'])
+def delete_client(id):
+    if 'user' in session:
+        cur = con.cursor()
+        cur.execute('DELETE FROM Clientes2 WHERE ID_Cliente = %s',(id))
+        con.commit()
+        flash('Cliente Eliminado Correctamente')
+        return redirect(url_for('clientes'))
+    else:
+        return redirect(url_for('index'))
+        
+#Propiedades del inventario
 @app.route('/Inventario', methods=['GET'])
 def inventario():
     if 'user' in session:
