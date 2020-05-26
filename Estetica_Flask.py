@@ -396,4 +396,4 @@ def delete_contact(id):
 if __name__ == '__main__':
     # Configuracion para Flash Messages
     app.secret_key = "mysecretkey"
-    app.run(debug = True, port=8000)
+    app.run(host='0.0.0.0', port=80)
