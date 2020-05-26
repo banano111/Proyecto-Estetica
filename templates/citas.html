@@ -2,13 +2,29 @@
 
 {% block content %}
 
-<div class= "container mt-5">
-    <div class= "row justify-content-center">
-         <div class= "col-8">
+<div class= "container-fluid p-5">
+  <div class="row">
+    <div class="col">
+      {% with messages = get_flashed_messages()  %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+  </div>  
+  <div class= "row">
+         <div class= "col-4">
                <div class= "card">
                    <div class= "card-header"> Citas</div>
                     <div class="card-boby p-5">
-                        <form>
+                        <form action="/nueva_cita" method="POST">
                            <div class="form-row">
                                <div class="form-group col-md-6">
                                  <label for="Fecha_Cita">Fecha</label>
@@ -18,27 +34,67 @@
                                   <label for="Horario_Cita">Horario</label>
                                  <input type="time" class="form-control" name="Horario_Cita" min="10:00" max="21:00">
                                </div>
-                                  <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                    <label for="Ciente_Cita">Cliente</label>
-                                   <input type="text" class="form-control" name="Ciente_Cita">
+                                   <input type="text" class="form-control" name="Cliente_Cita">
                                 </div>
-                                  <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
                                     <label for="Contacto_Cita">Contacto</label>
                                     <input type="text" class="form-control" name="Contacto_Cita">
-                                  </div>
-                             </div>
-                                 <div class="form-group">
-                                   <label for="Servicio_Cita">Servicio</label>
-                                    <select name="Servicio_Cita" class="form-control">
-                                    <option>Seleccione el servicio que desee.</option>
-                                    </select>
-                                  </div>
-                              <button type="submit" class="btn btn-primary" name="Crear_cita">Crear Cita</button>
-                       </form>
-                   </div>
-
-                 </div>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                   <label for="Servicio_Cita">Servicio</label> 
+                                   <select name="Servicio_Cita" class="form-control">
+                                    {% for servicio in Servicios %}
+                                    <option>{{servicio.Servicios}}</option>
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                            <button type="submit" class="btn btn-primary" name="Crear_cita">Crear Cita</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <div class="col-8">
+              <div class="card">
+                <div class="card-header">Calendario de Citas</div>
+                <div class="card-body">
+                  <div class="row mt-3">
+                    <div class="col">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">Nombre(s)</th>
+                                <th scope="col">Apellido(s)</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Fecha Cita</th>
+                                <th scope="col">Hora Cita</th>
+                                <th scope="col">Servicios</th>
+                                <th scope="col">Acciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for cita in Citas %}
+                              <tr>
+                                <td>{{cita.ID_Cliente}}</td>
+                                <td>{{cita.ID_Cliente}}</td>
+                                <td>{{cita.ID_Cliente}}</td>
+                                <td>{{cita.Fecha_Cita}}</td>
+                                <td>{{cita.Hora_Cita}}</td>
+                                <td>{{cita.ID_Servicios}}</td>
+                                <td>
+                                  <a href="/editar_cita/{{cita.ID_Cita}}" class="btn btn-secondary">Editar</a>
+                                  <a href="/eliminar_cita/{{cita.ID_Cita}}" class="btn btn-danger btn-delete">Eliminar</a>
+                                </td>
+                              </tr>
+                            {% endfor %} 
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+                </div>
+             </div>
        </div>
    </div>
 </div>

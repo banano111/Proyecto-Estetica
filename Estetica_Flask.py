@@ -34,7 +34,7 @@ def inicio_sesion():
     if user_pass_login != None:
         if user_pass_login.get("pass_login") == pass_login:
             session['user'] = user_login
-            return redirect(url_for('inventario'))
+            return redirect(url_for('principal'))
         else:
             flash("Contraseña Invalida")
             return redirect(url_for('index'))
@@ -68,7 +68,76 @@ def ventas():
 @app.route('/Citas')
 def citas():
     if 'user' in session:
-        return render_template('citas.html')
+        cur = con.cursor()
+        cur.execute("SELECT * FROM Citas")
+        Citas = cur.fetchall()
+        cur.execute("SELECT Servicios FROM CAT_Servicios")
+        Servicios =  cur.fetchall()
+        cur.close()
+        return render_template('citas.html', Citas = Citas, Servicios = Servicios)
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/nueva_cita', methods=['POST'])
+def nueva_cita():
+    if 'user' in session:
+        Fecha_Cita = request.form['Fecha_Cita']
+        Cliente_Cita = request.form['Cliente_Cita']
+        Hora_Cita = request.form['Horario_Cita']
+        ID_Servicio = request.form['Servicio_Cita']
+        cur = con.cursor()
+        cur.execute("INSERT INTO Citas (Fecha_Cita, ID_Servicios, ID_Cliente, Hora_Cita) VALUES (%s,%s,%s,%s)",(Fecha_Cita,ID_Servicio,Cliente_Cita,Hora_Cita))
+        con.commit()
+        cur.close()
+        flash('Nueva Cita Agregada')
+        return redirect(url_for('citas'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/editar_cita/<id>')
+def editar_cita(id):
+    if 'user' in session:
+        cur = con.cursor()
+        cur.execute('SELECT * FROM Citas WHERE ID_Cita = %s', (id))
+        data = cur.fetchall()
+        cur.execute("SELECT Servicios FROM CAT_Servicios")
+        Servicios =  cur.fetchall()
+        cur.close()
+        return render_template('editar_cita.html', cita = data[0], Servicios = Servicios)
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/actualizar_cita/<id>', methods=['POST'])
+def update_cita(id):
+    if 'user' in session:
+        Fecha_Cita = request.form['Fecha_Cita']
+        Cliente_Cita = request.form['Cliente_Cita']
+        Hora_Cita = request.form['Horario_Cita']
+        ID_Servicio = request.form['Servicio_Cita']
+        cur = con.cursor()
+        cur.execute("""
+                    UPDATE Citas
+                    SET Fecha_Cita = %s ,
+                        ID_Cliente = %s ,
+                        Hora_Cita = %s ,
+                        ID_Servicios = %s
+                    WHERE ID_Cita = %s
+                        """,(Fecha_Cita,Cliente_Cita,Hora_Cita,ID_Servicio,id))
+        con.commit()
+        cur.close()
+        flash('Cita Editada Correctamente')
+        return redirect(url_for('citas'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/eliminar_cita/<id>')
+def eliminar_citas(id):
+    if 'user' in session:
+        cur = con.cursor()
+        cur.execute('DELETE FROM Citas WHERE ID_Cita = %s',(id))
+        con.commit()
+        flash('Cita Eliminada Correctamente')
+        return redirect(url_for('citas'))
     else:
         return redirect(url_for('index'))
 

@@ -1,0 +1,48 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+
+<div class= "container mt-5">
+  <div class= "row justify-content-center">
+         <div class= "col-8">
+               <div class= "card">
+                   <div class= "card-header"> Citas</div>
+                    <div class="card-boby p-5">
+                        <form action="/actualizar_cita/{{cita.ID_Cita}}" method="POST">
+                           <div class="form-row">
+                               <div class="form-group col-md-6">
+                                 <label for="Fecha_Cita">Fecha</label>
+                                 <input type="date" class="form-control" value="{{cita.Fecha_Cita}}" name="Fecha_Cita" min="2020-01-01" max="2020-12-31">
+                                </div>
+                               <div class="form-group col-md-6">
+                                  <label for="Horario_Cita">Horario</label>
+                                 <input type="time" class="form-control" value="{{cita.Hora_Cita}}" name="Horario_Cita" min="10:00" max="21:00">
+                               </div>
+                                <div class="form-group col-md-6">
+                                   <label for="Ciente_Cita">Cliente</label>
+                                   <input type="text" class="form-control" name="Cliente_Cita" value="{{cita.ID_Cliente}}">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="Contacto_Cita">Contacto</label>
+                                    <input type="text" class="form-control" name="Contacto_Cita">
+                                </div>
+                            </div>
+                                <div class="form-group">
+                                   <label for="Servicio_Cita">Servicio</label> 
+                                   <select name="Servicio_Cita" class="form-control" >
+                                    <option selected>{{cita.ID_Servicios}}</option>
+                                    {% for servicio in Servicios %}
+                                    <option>{{servicio.Servicios}}</option >
+                                    {% endfor %}
+                                  </select>
+                                </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-3" name="Crear_cita">Actualizar Cita</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div>
+</div>
+
+{% endblock %}
