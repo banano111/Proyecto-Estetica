@@ -1,0 +1,33 @@
+{% extends 'base/base.html'%}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+      <div class="card-header">Registro De Ventas</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+              <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha Venta</th>
+                      <th scope="col">Total Venta</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for venta in Ventas %}
+                    <tr>
+                      <td>{{venta.Fecha_Venta}}</td>
+                      <td>${{venta.Total}}</td>
+                    </tr>
+                  {% endfor %} 
+                  </tbody>
+                </table>
+          </div>
+      </div>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

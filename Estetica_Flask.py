@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from datetime import date
 import pymysql.cursors
 
 app = Flask(__name__, template_folder="templates")
@@ -13,6 +14,9 @@ con = pymysql.connect(host='34.70.175.6',
 
 
 #Rutas de la App
+
+lista = []
+Suma = 0
 
 @app.route('/index')
 @app.route('/')
@@ -61,7 +65,67 @@ def principal():
 @app.route('/Ventas')
 def ventas():
     if 'user' in session:
-        return render_template('ventas.html')
+        global Suma
+        Suma = 0
+        lista.clear()
+        cur = con.cursor()
+        cur.execute("SELECT Servicios FROM CAT_Servicios")
+        Servicios =  cur.fetchall()
+        cur.close()
+        return render_template('ventas.html', Servicios = Servicios)
+    else:
+        return redirect(url_for('index'))
+
+
+@app.route('/nueva_venta', methods=['POST'])
+def nueva_venta():
+    if 'user' in session:
+        global Suma
+        TotalF = 0
+        ban = 1
+        Servicio_Venta = request.form['Producto_servicio']
+        Cantidad_Servicio = request.form['Cantidad_Ventas']
+        cur = con.cursor()
+        cur.execute("SELECT Servicios FROM CAT_Servicios")
+        Servicios =  cur.fetchall()
+        cur.execute("SELECT Precio FROM CAT_Servicios WHERE Servicios = %s", Servicio_Venta)
+        Precio_Serv = cur.fetchall()
+        cur.close()
+        for pre in Precio_Serv:
+            Precio_F = int(pre['Precio'])
+        TotalF = Precio_F * int(Cantidad_Servicio)    
+        lista.append({'Serv_Ven': Servicio_Venta, 'Cant': Cantidad_Servicio, 'Precio': Precio_F, 'PrecioTotal': TotalF})
+        print(TotalF)
+        print(Suma)
+        Suma = TotalF + Suma
+        print(lista)
+        return render_template('ventas.html', Servicios = Servicios, lista = lista, Suma_Total = Suma, ban = ban)
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/generar_venta', methods=['POST'])
+def generar_venta():
+    if 'user' in session:
+        hoy = date.today()
+        print(hoy)
+        global Suma
+        cur = con.cursor()
+        cur.execute("INSERT INTO Ventas (Fecha_Venta, Total) VALUES (%s,%s)",(hoy,Suma))
+        con.commit()
+        cur.close()
+        flash('Venta Generada Con Exito')
+        return redirect(url_for('ventas'))
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/registro_ventas')
+def registro_ventas():
+    if 'user' in session:
+        cur = con.cursor()
+        cur.execute("SELECT * FROM Ventas")
+        Ventas =  cur.fetchall()
+        cur.close()
+        return render_template('registro_ventas.html', Ventas = Ventas)
     else:
         return redirect(url_for('index'))
 
@@ -148,6 +212,7 @@ def clientes():
         cur.execute("SELECT * FROM Clientes2")
         Clientes = cur.fetchall()
         cur.close()
+        print(Clientes)
         return render_template('clientes.html', Clientes = Clientes)
     else:
         return redirect(url_for('index'))      

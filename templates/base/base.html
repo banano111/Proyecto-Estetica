@@ -178,7 +178,13 @@
       <ul class="nav navbar-nav navbar-right ml-auto">
         <li class="nav-item active"><a href="{{ url_for('principal')}}" class="nav-link mr-3"><i class="fa fa-home"></i><span>Principal</span></a></li>
         <li class="nav-item"><a href="{{ url_for('inventario')}}" class="nav-link mr-3"><i class="fa fa fa-cubes"></i><span>Inventario</span></a></li>
-        <li class="nav-item"><a href="{{ url_for('ventas')}}" class="nav-link mr-3"><i class="fa fa-money"></i><span>Ventas</span></a></li>
+        <li class="nav-item dropdown">
+			<a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle user-action mr-3"><i class="fa fa-money"></i><span>Ventas</span></a>
+			<ul class="dropdown-menu dropdown-menu-right">
+				<li><a href="{{ url_for('ventas')}}" class="dropdown-item"><i class="fa fa-user-o"></i>Generar Venta</a></li>
+				<li><a href="{{ url_for('registro_ventas')}}" class="dropdown-item"><i class="fa fa-calendar-o"></i>Registro Ventas</a></li>
+			</ul>
+		</li>
         <li class="nav-item"><a href="{{ url_for('citas')}}" class="nav-link mr-3"><i class="fa fa-calendar-plus-o"></i><span>Citas</span></a></li>
         <li class="nav-item"><a href="{{ url_for('clientes')}}" class="nav-link mr-3"><i class="fa fa-users"></i><span>Clientes</span></a></li>
         <li class="nav-item dropdown">
