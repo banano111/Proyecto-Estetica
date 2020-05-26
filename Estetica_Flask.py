@@ -38,7 +38,7 @@ def inicio_sesion():
     if user_pass_login != None:
         if user_pass_login.get("pass_login") == pass_login:
             session['user'] = user_login
-            return redirect(url_for('principal'))
+            return redirect(url_for('inventario'))
         else:
             flash("Contraseña Invalida")
             return redirect(url_for('index'))
@@ -47,18 +47,43 @@ def inicio_sesion():
         return redirect(url_for('index'))
     
 
+@app.route('/agregar_admin', methods=['POST', 'GET'])
+def add_admin():
+    if 'user' in session:
+        if request.method == "POST":
+            user_login = request.form['user_login']
+            pass_login = request.form['pass_login']
+            cur = con.cursor()
+            cur.execute("INSERT INTO Login (user_login, pass_login) VALUES (%s, %s)", (user_login, pass_login))
+            con.commit()
+            cur.close()
+            return redirect(url_for('principal'))
+        else:
+            return render_template('agregar_admin.html')
+    else:
+        return redirect(url_for('index'))
+
+@app.route('/cambiar_contrasena', methods=['POST', 'GET'])
+def cambiar_password():
+    if 'user' in session:
+        if request.method == "POST":
+            Nueva_Contrasena = request.form['Nueva_Contrasena']
+            cur = con.cursor()
+            cur.execute("UPDATE Login SET pass_login = %s WHERE user_login = %s",(Nueva_Contrasena,session['user']))
+            con.commit()
+            cur.close()
+            session.clear()
+            return redirect(url_for('index'))
+        else:
+            return render_template('cambiar_contrasena.html')
+    else:
+        return redirect(url_for('index'))
+
 @app.route('/logout')
 def logout():
     if 'user' in session:
         session.clear()
         return redirect(url_for('index'))
-    else:
-        return redirect(url_for('index'))
-
-@app.route('/Principal')
-def principal():
-    if 'user' in session:
-        return render_template('principal.html')
     else:
         return redirect(url_for('index'))
 
