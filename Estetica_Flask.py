@@ -237,7 +237,6 @@ def clientes():
         cur.execute("SELECT * FROM Clientes2")
         Clientes = cur.fetchall()
         cur.close()
-        print(Clientes)
         return render_template('clientes.html', Clientes = Clientes)
     else:
         return redirect(url_for('index'))      
